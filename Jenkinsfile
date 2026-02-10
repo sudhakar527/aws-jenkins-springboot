@@ -62,6 +62,13 @@ pipeline {
                 sh 'docker build -t springboot:latest .'
               }
             }
-        }  
+        }
+        stage("Trivy Scan") {
+            steps {
+              script {
+                sh 'trivy image --format table --scanners vuln -o trivy-image-report.html springboot:latest'
+              }
+            }
+        } 
     }
 }       
