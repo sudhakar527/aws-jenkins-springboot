@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'sonar-scanner'
-                    withSonarQubeEnv('sonarserver') {
+                    withSonarQubeEnv('sonar-server') {
                     sh """
                     ${scannerHome}/bin/sonar-scanner \
                     -Dsonar.organization=sudhakar527 \
@@ -45,7 +45,7 @@ pipeline {
                     -Dsonar.projectKey=sudhakar527_springbootpet \
                     -Dsonar.java.binaries=target
                     """
-                     }
+                    }
                 }
             }
         }
