@@ -33,28 +33,35 @@ pipeline {
           }
          }
        }
-       stage('Sonar Analysis') {
+    //    stage('Sonar Analysis') {
+    //         steps {
+    //             script {
+    //                 def scannerHome = tool 'sonar-scanner'
+    //                 withSonarQubeEnv('sonar-server') {
+    //                 sh """
+    //                 ${scannerHome}/bin/sonar-scanner \
+    //                 -Dsonar.organization=sudhakar527 \
+    //                 -Dsonar.projectName=SpringBootPet \
+    //                 -Dsonar.projectKey=sudhakar527_springbootpet \
+    //                 -Dsonar.java.binaries=target
+    //                 """
+    //                 }
+    //             }
+    //         }
+    //     }
+        // stage("Quality Gate") {
+        //     steps {
+        //       timeout(time: 1, unit: 'MINUTES') {
+        //         waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
+        //       }
+        //     }
+        // } 
+        stage("Build Docker Image and TAG") {
             steps {
-                script {
-                    def scannerHome = tool 'sonar-scanner'
-                    withSonarQubeEnv('sonar-server') {
-                    sh """
-                    ${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.organization=sudhakar527 \
-                    -Dsonar.projectName=SpringBootPet \
-                    -Dsonar.projectKey=sudhakar527_springbootpet \
-                    -Dsonar.java.binaries=target
-                    """
-                    }
-                }
-            }
-        }
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
+              script {
+                sh 'docker build -t springboot:latest .'
               }
             }
-        }   
+        }  
     }
 }       
