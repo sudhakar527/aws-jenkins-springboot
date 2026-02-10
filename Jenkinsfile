@@ -78,6 +78,14 @@ pipeline {
                 sh 'docker push 405894865527.dkr.ecr.us-east-2.amazonaws.com/myrepo:latest'
               }
             }
-        } 
+        }
+        stage("Deploy To Kubernetes") {
+            steps {
+              script {
+                sh 'aws eks update-kubeconfig --region us-east-1 --name eksdemo1'
+                sh 'kubectl apply -f k8s/sprinboot-deployment.yaml'
+              }
+            }
+        }
     }
 }       
