@@ -9,30 +9,30 @@ pipeline {
                 git branch:'prod' , url: "https://github.com/sudhakar527/aws-jenkins-springboot.git"
             }
         }
-        // stage ('Maven Parallel Stages') {
-         // parallel {
-        //  stage ('Maven Validate'){
-        //     steps {
-        //         sh 'mvn validate'
-        //     }
-        // }
-        // stage ('Maven Compile'){
-        //     steps {
-        //         sh 'mvn compile'
-        //     }
-        // }
-        //  stage ('Maven Test'){
-        //     steps {
-        //         sh 'mvn test'
-        //     }
-        // }
-    //     stage ('Maven Package'){
-    //         steps {
-    //             sh 'mvn package'
-    //         }
-    //       }
-    //      }
-    //    }
+        stage ('Maven Parallel Stages') {
+         parallel {
+         stage ('Maven Validate'){
+            steps {
+                sh 'mvn validate'
+            }
+        }
+        stage ('Maven Compile'){
+            steps {
+                sh 'mvn compile'
+            }
+        }
+         stage ('Maven Test'){
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage ('Maven Package'){
+            steps {
+                sh 'mvn package'
+            }
+          }
+         }
+       }
     //    stage('Sonar Analysis') {
     //         steps {
     //             script {
