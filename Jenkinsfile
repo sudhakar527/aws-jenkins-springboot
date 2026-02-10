@@ -69,6 +69,15 @@ pipeline {
                 sh 'trivy image --format table --scanners vuln -o trivy-image-report.html springboot:latest'
               }
             }
+        }
+        stage("Push Docker Image to AWS ECR") {
+            steps {
+              script {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 405894865527.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker tag springboot:latest 405894865527.dkr.ecr.us-east-2.amazonaws.com/myrepo:latest'
+                sh 'docker push 405894865527.dkr.ecr.us-east-2.amazonaws.com/myrepo:latest'
+              }
+            }
         } 
     }
 }       
