@@ -14,7 +14,7 @@ pipeline {
          parallel {
         //  stage ('Maven Validate'){
         //     steps {
-        //         sh 'mvn validate'
+        //         sh 'mvn validate' .
         //     }
         // }
         // stage ('Maven Compile'){
